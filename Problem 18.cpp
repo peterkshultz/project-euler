@@ -11,9 +11,10 @@
 
 using namespace std;
 
-int main(int argc, const char * argv[])
+int main();
 {
     cout << "Hello Sam";
+    cout << "Sup Peter";
     
     return 0;
 }
