@@ -1,63 +1,49 @@
-//
-//  main.cpp
-//  test
-//
-//  Created by Peter Shultz on 10/2/14.
-//  Copyright (c) 2014 Peter Shultz. All rights reserved.
-//
-
 #include <iostream>
 #include <cmath>
-#include <math.h>
+
 using namespace std;
 
-bool isPrime(int val)
+long long sum_of_primes_under(int input)
 {
-    int i;
+    bool is_prime [input];
+    long long sum_of_primes = 0;
     
-    if ((val == 2) || (val == 3))
+    // Set all values to true
+    for (int i = 0; i < input; i++)
     {
-        return true;
+        is_prime[i] = true;
     }
     
-    if (val > 1)
+    // Sift
+    for (int i = 2; i <= sqrt(input); i++)
     {
-        for (i = 2; i * i <= val; i++)
+        if (is_prime[i])
         {
-            if (val % i == 0)
+            for (int j = pow(i, 2); j < input; j++)
             {
-                return false;
+                if ((j % i) == 0)
+                {
+                    is_prime[j] = false;
+                }
             }
         }
-        
-        return true;
-        
     }
     
-    else
+    // Collect number of primes
+    for (int i = 2; i < input; i++)
     {
-        return false;
+        if (is_prime[i])
+        {
+            sum_of_primes += i;
+        }
     }
+    
+    return sum_of_primes;
 }
 
 int main(int argc, const char * argv[])
 {
-    int i;
-    long long sum = 0;
-
-    for (i = 0; i < 2000000; i++)
-    {
-        
-        if (isPrime(i))
-        {
-            //cout << "Prime number: " << i << endl;
-            sum = sum + i;
-        }
-        
-    }
+    cout << sum_of_primes_under(2000000) << endl;
     
-    cout << sum << endl << endl;
-    
-    cout << endl << "Test completed." << endl;
+    cout << "Test completed." << endl;
 }
-
